@@ -1,37 +1,36 @@
 const connectDB = require("./db")
 const { createPhrase, getCurrentPhrase } = require("./db_requests/crud_phrase")
-const { setPostedFalse } = require("./db_requests/user_update")
+const { createTimeToPostNotification, deleteAllNotifications } = require("./db_requests/notificationCreator")
+const { resetPosts, setPostedFalse } = require("./db_requests/user_update")
 const { generateRandomPhrase } = require("./phrase_generator")
 generateNextDate = require('./time_generator')
 
 /*
 nextDate = generateNextDate()*/
 nextDate = new Date()
-nextDate.setMinutes(nextDate.getMinutes()+1)
+nextDate.setSeconds(nextDate.getSeconds()+10)
 console.log(`la prochaine phrase sera générée le ${nextDate.toString()}`)
 
 connectDB()
 
-
-setInterval(timeToPost, 60000)
-
-
-console.log(generateRandomPhrase())
-
-
+setInterval(timeToPost, 1000)
 
 async function updatePhrase()  {
     
     //genere la phrase 
     phrase = generateRandomPhrase()
-    
+    console.log(phrase)
+
     //update la bd
     await createPhrase(phrase)
 
-    //update les notifs
-
-    //update User.posted à false
+    //update User.posted à false et remet a 0 les notifs
     await setPostedFalse()
+
+    await deleteAllNotifications()
+
+    //genere la notif de post
+    await createTimeToPostNotification()
 
     //genere la prochaine date
     nextDate = await generateNextDate()
@@ -40,6 +39,7 @@ async function updatePhrase()  {
 
 function timeToPost(){
     if(isTimeToPost()){
+        console.log("c lheure")
         updatePhrase()
     }
 }
