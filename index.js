@@ -1,7 +1,8 @@
+const { generateColors } = require("./color_generator")
 const connectDB = require("./db")
 const { createPhrase, getCurrentPhrase } = require("./db_requests/crud_phrase")
 const { createTimeToPostNotification, deleteAllNotifications } = require("./db_requests/notificationCreator")
-const { resetPosts, setPostedFalse } = require("./db_requests/user_update")
+const { resetPosts, setPostedFalse, updateUser } = require("./db_requests/user_update")
 const { generateRandomPhrase } = require("./phrase_generator")
 generateNextDate = require('./time_generator')
 
@@ -25,7 +26,7 @@ async function updatePhrase()  {
     await createPhrase(phrase)
 
     //update User.posted à false et remet a 0 les notifs
-    await setPostedFalse()
+    await updateUser()
 
     await deleteAllNotifications()
 
