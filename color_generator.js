@@ -3,6 +3,7 @@ const fs = require('fs')
 file = fs.readFileSync('./color_palette.txt')
 
 colorList = file.toString().replace(/(\r\n|\n|\r)/gm, "").split(";")
+colorList = colorList.slice(0, colorList.length -1)
 
 exports.generateColors = () => {
     return colorList[getRandomInt(0, colorList.length)].split(":")
