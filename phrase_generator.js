@@ -5,6 +5,7 @@ exports.generateRandomPhrase = () =>{
     file = fs.readFileSync('./phrases.txt')
 
     phrases = file.toString().split(";")
+    phrases = phrases.slice(0, phrases.length -1)
 
     return phrases[getRandomInt(0, phrases.length)].split("\"")[1]
 }   

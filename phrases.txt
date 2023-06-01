@@ -29,3 +29,7 @@ Où nous venons pour mourir. -Natsume Sôseki";
 "Après le tonnerre -
 Les nuages de la nuit
 Ont le teint frais. -Hara Sekitei";
+
+"Même
+lorsque mon père se mourait
+je pétais. -Yamazaki Sôkan";

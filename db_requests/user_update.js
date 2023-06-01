@@ -8,7 +8,6 @@ exports.updateUser = async () => {
     await User.find().then((users) => {
         users.forEach(async(user) => {
             var colors = generateColors()
-            console.log(colors)
             await User.findByIdAndUpdate(user._id, {$set: {posted: false, primaryColor: colors[0], secondaryColor: colors[1]}})
         })
     })
